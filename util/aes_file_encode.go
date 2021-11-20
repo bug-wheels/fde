@@ -17,14 +17,14 @@ type AesFileEncode struct {
 	PwdKey []byte
 }
 
-func (a AesFileEncode) encode(sourceFile, destinationFile string) error {
+func (a AesFileEncode) Encode(sourceFile, destinationFile string) error {
 	if IsFileExists(destinationFile) {
 		return errors.New(destinationFile + " 目标文件已经存在，不能处理")
 	}
 	return EncryptFile(a.PwdKey, sourceFile, destinationFile)
 }
 
-func (a AesFileEncode) decode(sourceFile, destinationFile string) error {
+func (a AesFileEncode) Decode(sourceFile, destinationFile string) error {
 	if IsFileExists(destinationFile) {
 		return errors.New(destinationFile + " 目标文件已经存在，不能处理")
 	}
@@ -166,7 +166,7 @@ func EncryptFile(key []byte, sourceFile, destinationFile string) error {
 	}
 	defer ff.Close()
 
-	headTitle := FileHeadTitle {
+	headTitle := FileHeadTitle{
 		Algorithm: "aes",
 		PKey:      string(key),
 	}
@@ -227,7 +227,7 @@ func DecryptFile(key []byte, sourceFile string, destinationFile string) error {
 		if err != nil {
 			break
 		}
-		if num ==1 && strings.Index(readline, "0xYN7") == 0 {
+		if num == 1 && strings.Index(readline, "0xYN7") == 0 {
 			continue
 		}
 		getByte, err := DecryptByAes(key, readline)

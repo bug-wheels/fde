@@ -3,9 +3,9 @@ package util
 import "os"
 
 type FileEncode interface {
-	encode(sourceFile, destinationFile string) error
+	Encode(sourceFile, destinationFile string) error
 
-	decode(sourceFile, destinationFile string) error
+	Decode(sourceFile, destinationFile string) error
 }
 
 type FileHeadTitle struct {

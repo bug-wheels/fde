@@ -1,6 +1,7 @@
-package util
+package test
 
 import (
+	"AesFileUtil/util"
 	"reflect"
 	"testing"
 )
@@ -20,7 +21,7 @@ func TestAesDecrypt(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := AesDecrypt(tt.args.key, tt.args.data)
+			got, err := util.AesDecrypt(tt.args.key, tt.args.data)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("AesDecrypt() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -47,7 +48,7 @@ func TestAesEncrypt(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := AesEncrypt(tt.args.key, tt.args.data)
+			got, err := util.AesEncrypt(tt.args.key, tt.args.data)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("AesEncrypt() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -84,10 +85,10 @@ func TestAesFileEncode_decode(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			a := AesFileEncode{
+			a := util.AesFileEncode{
 				PwdKey: tt.fields.PwdKey,
 			}
-			if err := a.decode(tt.args.sourceFile, tt.args.destinationFile); (err != nil) != tt.wantErr {
+			if err := a.Decode(tt.args.sourceFile, tt.args.destinationFile); (err != nil) != tt.wantErr {
 				t.Errorf("decode() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
@@ -118,10 +119,10 @@ func TestAesFileEncode_encode(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			a := AesFileEncode{
+			a := util.AesFileEncode{
 				PwdKey: tt.fields.PwdKey,
 			}
-			if err := a.encode(tt.args.sourceFile, tt.args.destinationFile); (err != nil) != tt.wantErr {
+			if err := a.Encode(tt.args.sourceFile, tt.args.destinationFile); (err != nil) != tt.wantErr {
 				t.Errorf("encode() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
@@ -143,7 +144,7 @@ func TestDecryptByAes(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := DecryptByAes(tt.args.key, tt.args.data)
+			got, err := util.DecryptByAes(tt.args.key, tt.args.data)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("DecryptByAes() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -170,7 +171,7 @@ func TestDecryptFile(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := DecryptFile(tt.args.key, tt.args.sourceFile, tt.args.destinationFile); (err != nil) != tt.wantErr {
+			if err := util.DecryptFile(tt.args.key, tt.args.sourceFile, tt.args.destinationFile); (err != nil) != tt.wantErr {
 				t.Errorf("DecryptFile() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
@@ -192,7 +193,7 @@ func TestEncryptByAes(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := EncryptByAes(tt.args.key, tt.args.data)
+			got, err := util.EncryptByAes(tt.args.key, tt.args.data)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("EncryptByAes() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -219,7 +220,7 @@ func TestEncryptFile(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := EncryptFile(tt.args.key, tt.args.sourceFile, tt.args.destinationFile); (err != nil) != tt.wantErr {
+			if err := util.EncryptFile(tt.args.key, tt.args.sourceFile, tt.args.destinationFile); (err != nil) != tt.wantErr {
 				t.Errorf("EncryptFile() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
